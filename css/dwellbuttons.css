@@ -1,0 +1,46 @@
+.dwell, .dwelltoggle {
+    position:       relative;
+    
+    border-style:   solid;
+    border-color:   black;
+    text-align:     center;
+    
+    background:     #f0f0c8;
+}
+
+.selected {
+    border-color:   red;
+}
+
+div.dwellbar {
+    position:       absolute;
+
+    border-style:   solid;
+    border-color:   black;
+    border-width:   1px;
+
+    height:         30px;
+    bottom:         10%;
+    width:          75%;
+    left:           25%;
+    vertical-align: middle;
+
+    background:     #b01037;
+}
+  
+.dwellgroup {
+    border-style:   solid;
+    border-color:   gray;
+    background:     gray;
+}
+  
+.dwell, .dwellgroup, .dwelltoggle {
+    width:          auto;
+    text-align:     center;
+    border-width:   8px;
+}
+  
+.dwellgroup .dwell {
+    display: inline-block;
+    min-height: 150px;
+}
