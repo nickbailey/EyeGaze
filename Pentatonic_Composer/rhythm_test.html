@@ -1,0 +1,21 @@
+<!-- A short file which containing an sample rhythm to test the
+     rhythm parser.
+     
+     The current grammer (in rhythm.jison) provides for a
+     comma-separated lists of lilypond style durations, which
+     can be modified by the tuple syntax shown below.
+     
+     Bars are separated by |
+     
+     The parser returns an array of bars;
+     each bar is an array of durations.
+-->
+
+<script src="rhythm.js"></script>
+<script>
+var result = rhythm.parse("2|(3 in 2):(4*3),(8*4)|1");
+
+for (var i = 0; i < result.length; i++) {
+    console.log(result[i]);
+}
+</script>
