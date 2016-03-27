@@ -55,4 +55,6 @@ atom
         { $$ = $7.map(function(v){ return v * $2[0]/$4[0]; }); }
     | '(' atom REPEAT INT ')'
         { $$ = Array.from({length: $4}, () => $2[0]); }
+    | '(' r ')'
+        { $$ = $2; }
     ;

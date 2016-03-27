@@ -1,3 +1,4 @@
+<html>
 <!-- A short file which containing an sample rhythm to test the
      rhythm parser.
      
@@ -10,12 +11,23 @@
      The parser returns an array of bars;
      each bar is an array of durations.
 -->
-
+<head>
 <script src="rhythm.js"></script>
 <script>
-var result = rhythm.parse("2|(3 in 2):(4*3),(8*4)|1");
-
-for (var i = 0; i < result.length; i++) {
-    console.log(result[i]);
+function test(r) {
+    document.getElementById("input").innerHTML = r;
+    var result = rhythm.parse(r);
+    var html = "<ol>\n";
+    for (var i = 0; i < result.length; i++) {
+        html+=("<li>" + result[i] + "</li>\n");
+    }
+    html += ("</ol>\n");
+    document.getElementById("result").innerHTML = html;
 }
 </script>
+</head>
+<body onload="test('4|(3 in 2):(4*3),(8*4)|(3 in 4):(4,8),(8*2),4');">
+<div id="input"></div>
+<div id="result"></div>
+</body>
+</html>
