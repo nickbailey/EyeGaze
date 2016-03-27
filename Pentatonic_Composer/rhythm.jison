@@ -31,30 +31,45 @@ rhythm
     : bars EOF
         { return $$; }
     ;
-    
+
+/* The rhythm consists of bars, i.e. one or more sequences separated by '|'. */
 bars
-    : r
+    : sequence
         { $$ = [$1]; }
-    | bars BAR r
+    | bars BAR sequence
         { $$ = $1.concat([$3]); }
     ;
-    
-r
-    : atom
+
+/* A sequence is one or more comma-separated groups */
+sequence
+    : group
         { $$ = $1; }
-    |  r SEP atom
+    |  sequence SEP group
         { $$ = $1.concat($3); }
     ;
-    
-atom
-    : INT
-        { $$ = [ 4.0/parseFloat($1) ]; }
-    | INT '.'
-        { $$ = [ 1.5 * 4.0/parseFloat($1) ]; }
-    | '(' atom IN atom ')' TUPLE atom
-        { $$ = $7.map(function(v){ return v * $2[0]/$4[0]; }); }
-    | '(' atom REPEAT INT ')'
-        { $$ = Array.from({length: $4}, () => $2[0]); }
-    | '(' r ')'
+
+/* A group is either:
+ *      a single note
+ *      a group preceded by a "(value in value):" tuplet declaration
+ *      a group repeated n times "(group * n)", or
+ *      a bracket-enclosed sequence, e.g. (4., 8)
+ */
+group
+    : value
+        { $$ = [$1]; }
+    | '(' value IN value ')' TUPLE group
+        { $$ = $7.map(function(v){ return v * $2/$4; }); }
+    | '(' group REPEAT INT ')'
+        /* concat.apply() flattens the array of arrays into a single array */
+        { $$ = Array.from({length: $4}, () => [].concat.apply([],$2)); }
+    | '(' sequence ')'
         { $$ = $2; }
+    ;
+
+/* Length of a note in beats */
+value
+    : INT
+        { $$ = 4.0/parseFloat($1); }
+    | INT '.'
+        { $$ = 1.5 * 4.0/parseFloat($1); }
     ;
