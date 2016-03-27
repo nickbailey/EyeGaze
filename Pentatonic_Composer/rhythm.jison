@@ -6,11 +6,16 @@
 
 /* lexical grammar */
 %lex
+/* Omitting the flex option makes the parser faster but requires
+ * tokens to end with a word boundary, so no good for us!
+ */
+%options flex
 
 %%
 \s+                   /* skip whitespace */
 [1-9]*[0-9]+          return 'INT';
 "."                   return '.';
+"_"                   return 'TIE';
 ","                   return 'SEP';
 "("                   return '(';
 ")"                   return ')';
@@ -21,7 +26,6 @@
 <<EOF>>               return 'EOF';
 
 /lex
-
 
 %start rhythm
 
@@ -44,8 +48,20 @@ bars
 sequence
     : group
         { $$ = $1; }
-    |  sequence SEP group
-        { $$ = $1.concat($3); }
+    | sequence SEP group
+        {{
+            /* Ties result in -ve durations for 2nd and subsequent notes.
+             * Except at the start of a bar, these need to be merged
+             * into single events
+             */
+            for (var i = 0; i < $3.length; i++)
+                if ($3[i] > 0 || $1.length == 0) 
+                    $1.push($3[i]);
+                else
+                    $1[$1.length-1] += -$3[i];
+            /* $$ = $1.concat($3); */
+            
+        }}
     ;
 
 /* A group is either:
@@ -57,7 +73,7 @@ sequence
 group
     : value
         { $$ = [$1]; }
-    | '(' value IN value ')' TUPLE group
+    | '(' simple IN simple ')' TUPLE group
         { $$ = $7.map(function(v){ return v * $2/$4; }); }
     | '(' group REPEAT INT ')'
         /* concat.apply() flattens the array of arrays into a single array */
@@ -68,6 +84,13 @@ group
 
 /* Length of a note in beats */
 value
+    : simple
+        { $$ = $1; }
+    | TIE simple
+        { $$ = -$2; }
+    ;
+
+simple
     : INT
         { $$ = 4.0/parseFloat($1); }
     | INT '.'
