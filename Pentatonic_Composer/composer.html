@@ -26,7 +26,6 @@ var keyboard = new Keyboard(Keyboard.KEYBOARD_12DO,
                             keyb_start, keyb_keys);
 $(document).ready(function() {
     $("#kbd").html(keyboard.make_svg(true, [keyb_width, keyb_height]));
-    //$("#kbd").width(8*keyb_8ves*keyb_width);
 });
 </script>
 
@@ -43,6 +42,8 @@ $(document).ready(function() {
 </head>
 
 <body>
+
+
 <div class="container">
   <div class="centerthis" id="controls">
     <form style="margin-bottom:16px">
@@ -51,15 +52,17 @@ $(document).ready(function() {
            style="transform-origin:left;transform:rotate(270deg) translate(0%,400%)"
            type="range"
            min="0" max="1" value="0.3" step="0.025"
-           onchange="theMasterGain.gain.value = value;
-                        masterGainValue.value = value;"/><br/>
-    <span style="display:inline-block;width:2cm;text-align:right">
-    <output id="masterGainValue">0.3</output></span>
-    <input type="button" value="Tacet"
-           onclick="keyboard.silence();" />
+           onchange="theMasterGain.gain.value = value;masterGain.value = value;"/><br/>
+    <span style="display:inline-block;width:1cm;text-align:right;padding-left:0.5cm">
+    <output id="masterGain">0.3</output></span>
     </form>
   </div>
   <div class="keyboard centerthis" id="kbd"></div>
+  <div class="centerthis" style="vertical-align:top;margin-left:10px;margin-top:32px">
+    <form >
+      <input type="button" value="Tacet" onclick="keyboard.silence();" />
+    </form>
+  </div>
 </div>
 <div class="dwelltoggle" style="min-height:200px;">
   <p>Image goes here</p>
