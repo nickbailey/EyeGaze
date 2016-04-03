@@ -1,0 +1,34 @@
+/* Style sheet for the webaudio keyboard */
+
+.keyLabel {
+  font-size: 12pt;
+  pointer-events: none;
+  user-select: none;
+}
+.keyLabelCents {
+  font-size: 9pt;
+  pointer-events: none;
+  user-select: none;
+}
+.key_natural {
+  stroke-width: 3;
+}
+.key_natural[state="up"] {
+  fill: rgb(220,220,60);
+  stroke: rgb(0,0,0);
+}
+.key_natural[state="down"] {
+  fill: rgb(120,120,36);
+  stroke: rgb(220,220,60);
+}
+.key_accidental {
+  stroke-width: 3;
+}
+.key_accidental[state="up"] {
+  fill: rgb(160,160,40);
+  stroke: rgb(0, 0, 0);
+}
+.key_accidental[state="down"] {
+  fill: rgb(100,100,30);
+  stroke: rgb(160,160,40);
+}

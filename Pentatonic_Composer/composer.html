@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet"
+      href="http://www.n-ism.org/css/clavier.css"
+      type="text/css" />
+<script src="../js/jquery-2.2.2.min.js"></script>
+<script src="../js/dwellbuttons.js"></script>
+<!--script src="../js/clavier.js"></script-->
+<script language="javascript" type="text/javascript"
+        src="http://www.n-ism.org/Javascript/clavier.js">
+</script>
+<script type="text/javascript">
+// User configuration
+var dwell = 1000;      // Dwell time to select an item (ms)
+
+var keyb_height = 180;  // Tutor's keyboard: height
+var keyb_width = 48;    // Tutor's keyboard: width of a key
+var keyb_8ves = 1;      // One octave...
+var keyb_start = 0;     //   middle C to C.
+
+
+// Draw the keyboard
+var keyb_keys = 12*keyb_8ves + 1;
+var keyboard = new Keyboard(Keyboard.KEYBOARD_12DO,
+                            keyb_start, keyb_keys);
+$(document).ready(function() {
+    $("#kbd").html(keyboard.make_svg(true, [keyb_width, keyb_height]));
+    //$("#kbd").width(8*keyb_8ves*keyb_width);
+});
+</script>
+
+<style type="text/css">
+.container {
+  position: relative;
+  display: block;
+  text-align: center;
+}
+.centerthis {
+  display: inline-block;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="centerthis" id="controls">
+    <form style="margin-bottom:16px">
+    <br/>
+    <input id="masterGainSlider"
+           style="transform-origin:left;transform:rotate(270deg) translate(0%,400%)"
+           type="range"
+           min="0" max="1" value="0.3" step="0.025"
+           onchange="theMasterGain.gain.value = value;
+                        masterGainValue.value = value;"/><br/>
+    <span style="display:inline-block;width:2cm;text-align:right">
+    <output id="masterGainValue">0.3</output></span>
+    <input type="button" value="Tacet"
+           onclick="keyboard.silence();" />
+    </form>
+  </div>
+  <div class="keyboard centerthis" id="kbd"></div>
+</div>
+<div class="dwelltoggle" style="min-height:200px;">
+  <p>Image goes here</p>
+  <p>Text goes here</p>
+</div>
+<div class="dwellgroup">
+  <div class="dwell" style="width:30%"><p>1</p></div>
+  <div class="dwell" style="width:30%"><p>2</p></div>
+  <div class="dwell" style="width:30%"><p>3</p></div>
+</div>
+</body>
+</html>
