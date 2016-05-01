@@ -4,6 +4,9 @@
 <link rel="stylesheet"
       href="http://www.n-ism.org/css/clavier.css"
       type="text/css" />
+<link rel="stylesheet"
+      href="composer.css"
+      type="text/css" />
 <script src="../js/jquery-2.2.2.min.js"></script>
 <script src="../js/dwellbuttons.js"></script>
 <!--script src="../js/clavier.js"></script-->
@@ -29,22 +32,28 @@ $(document).ready(function() {
 });
 </script>
 
-<style type="text/css">
-.container {
-  position: relative;
-  display: block;
-  text-align: center;
-}
-.centerthis {
-  display: inline-block;
-}
-</style>
 </head>
 
 <body>
 
 
-<div class="container">
+<div class="container" id="topControls">
+  <div id="transportButtons">
+    <div class="dwell transportButton" id="playAll">
+      <svg height="40" width="40">
+        <polygon points="10,10 30,20 10,30"
+                 style="fill:lime;stroke:black;stroke-width:1" />
+      </svg>
+    <p>Play All</p>
+    </div>
+    <div class="dwell transportButton" id="stop">
+      <svg height="40" width="40">
+        <polygon points="10,10 30,10 30,30 10,30"
+                 style="fill:red;stroke:black;stroke-width:1" />
+      </svg>
+      <p>Stop</p>
+    </div>
+  </div>
   <div class="centerthis" id="controls">
     <form style="margin-bottom:16px">
     <br/>
@@ -64,7 +73,7 @@ $(document).ready(function() {
     </form>
   </div>
 </div>
-<div class="dwelltoggle" style="min-height:200px;">
+<div class="dwelltoggle" style="min-height:200px;clear:both">
   <p>Image goes here</p>
   <p>Text goes here</p>
 </div>

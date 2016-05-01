@@ -1,0 +1,30 @@
+/* composer.css
+ * 
+ * Style sheet for Pentatonic Composer
+ */
+
+.container {
+  position: relative;
+  display: block;
+  text-align: center;
+}
+.centerthis {
+  display: inline-block;
+}
+
+#transportButtons {
+  float: left;
+  width: 3cm;
+}
+
+.transportButton {
+  /* Make space for the animation */
+  padding-bottom: 32px;
+  /* Push the transport buttons together
+   * to make them look like a single control */
+  margin-top: -8px;
+}
+
+.transportButton p {
+  margin-top: -10px;
+}
